@@ -1,11 +1,11 @@
 template<typename Elem>
 class ArrayList() {
 private:
-    int* list;
-    int size;
-    int listLengh;
-    int rightLengh;
-    int leftLengh;
+    Elem* list;
+    int maxSize;
+    int listLength;
+    int rightLength;
+    int leftLength;
     int fence;
 public:
     ArrayList();
@@ -16,5 +16,18 @@ public:
     int remove(Elem elem);
     int append(Elem elem);
     int setPosition(int pos);
-    
+}
+
+ArrayList::ArrayList(int init_size) {
+    maxSize = init_size;
+    list = new Elem[maxSize];
+    fence = listLength = rightLength = leftLength = 0;
+}
+
+int ArrayList::setStart() {
+    fence = 0;
+}
+
+int ArrayList::setEnd() {
+    fence = listLengh;
 }
