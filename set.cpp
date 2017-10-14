@@ -1,6 +1,3 @@
-#include<iostream>
-using namespace std;
-
 /*
 Description
 
@@ -73,6 +70,9 @@ Sample Output
 1 3 4 5 6 7 8 2 10 12
 2 10 12
 */
+#include<iostream>
+using namespace std;
+
 template <class Elem>
 class Set
 {
