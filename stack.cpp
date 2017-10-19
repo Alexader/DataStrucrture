@@ -12,14 +12,17 @@ public:
 template<class Elem>
 class ArrayStack: public Stack<Elem> {
 private:
-    int size;
+    int maxSize;
     int top;
     Elem* arrayStack;
 public:
-    ArrayStack(int mSize = defaultValue) {
-        size = mSize;
-        arrayStack = new Elem[size];
+    ArrayStack(int size = defaultValue) {
+        maxSize = size;
+        arrayStack = new Elem[maxSize];
         top = 0;
+    }
+    ~ArrayStack() {
+        delete[] arrayStack;
     }
     void clear() {
         top = 0;
