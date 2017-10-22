@@ -2,6 +2,8 @@
 template<class E>
 class Queue {
 public:
+    Queue() {}
+    virtual ~Queue() {}
     virtual void clear() = 0;
     virtual void enqueue(E &ele) = 0;
     virtual E dequeue() = 0;
