@@ -2,10 +2,10 @@
 template<class E>
 class Queue {
 public:
-    void clear() = 0;
-    void enqueue(E &ele) = 0;
-    E dequeue() = 0;
-    int length() = 0;
+    virtual void clear() = 0;
+    virtual void enqueue(E &ele) = 0;
+    virtual E dequeue() = 0;
+    virtual int length() = 0;
 }
 //queue based on array
 template<class E>
@@ -91,9 +91,12 @@ public:
         while(temp->next!=top) {
             temp = temp->next;
         }
+        E tempEle;
+        tempEle = top->ele;
         delete top;
         top = temp;
         size--;
+        return tempEle;
     }
     int length() {
         return size;
