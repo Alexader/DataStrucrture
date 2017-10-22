@@ -1,10 +1,6 @@
 //queue ADT
 template<class E>
 class Queue {
-private:
-    E* queue;
-    int maxSize;
-
 public:
     void clear() = 0;
     void enqueue(E &ele) = 0;
@@ -47,5 +43,59 @@ public:
     }
     int length() {
         return (rear-front+1+maxSize)%maxSize;
+    }
+}
+//queue based on linked list
+template<class E>
+class Node<class E> {
+private:
+    E ele;
+    Node* next;
+public:
+    Node(E& element, Node* nextPtr = NULL) {
+        ele = element;
+        next = nextPtr;
+    }
+}
+template<class E>
+class LQueue:public Queue {
+private:
+    Node* top;
+    Node* bottom;
+    int size;
+public:
+    LQueue() {
+        size = 0;
+        head = bottom = NULL;
+    }
+    ~LQueue() {
+        clear();
+    }
+    void clear() {
+        Node* temp = bottom;
+        while(temp!=NULL) {
+            bottom = bottom->next;
+            delete temp;
+            temp = bottom;
+        }
+        top = NULL;
+    }
+    void enqueue(E &ele) {
+        Assert(bottom==NULL, "queue is empty");
+        bottom = new Node(ele, bottom);
+        size++;
+    }
+    E& dequeue() {
+        Assert(bottom==NULL, "queue is empty");
+        Node* temp = bottom;
+        while(temp->next!=top) {
+            temp = temp->next;
+        }
+        delete top;
+        top = temp;
+        size--;
+    }
+    int length() {
+        return size;
     }
 }
