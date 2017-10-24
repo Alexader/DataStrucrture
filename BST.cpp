@@ -18,7 +18,7 @@ class BinNode
     bool setValue(E& element) { ele = element; }
     BinNode *&getLetfChild() { return lc; }
     BinNode *&getRightChild() { return rc; }
-}
+};
 
 //this is a BST(binary search tree)
 template <class E>
@@ -32,26 +32,26 @@ class BST
     {
         if (subroot == NULL)
             return;
-        clearHelp(subroot->lc);
-        clearHelp(subroot->rc);
+        clearHelp(subroot->getLetfChild());
+        clearHelp(subroot->getRightChild());
         delete subroot;
     }
     bool findHelper(BinNode<E> *subroot, E &ele)
     {
         if (root == NULL)
             return false;
-        if (ele == root->ele)
+        else if (ele == root->getValue())
             return true;
-        if (ele < root->ele)
-            find(root->lc, ele);
-        if (ele > root->ele)
-            find(root->rc, ele);
-        return false;
+        else if (ele < root->getValue())
+            findHelper(root->getLetfChild(), ele);
+        else if (ele > root->getValue())
+            findHelper(root->getRightChild(), ele);
+        else { return false; }
     }
     BinNode<E>*& insertHelper(BinNode<E>* subroot, E &ele) {
-        if(ele==subroot->ele) {subroot->setValue(removeMin(subroot));}
-        if(ele>subroot->ele) insertHelper(subroot->lc, ele);
-        else insertHelper(subroot->rc, ele);
+        if(ele == subroot->getValue()) {subroot->setValue(removeMin(subroot));}
+        if(ele > subroot->getValue()) insertHelper(subroot->getLetfChild(), ele);
+        else insertHelper(subroot->getRightChild(), ele);
     }
 
   public:
@@ -68,7 +68,7 @@ class BST
         nodeCount = 0;
     }
     bool find(E &ele) { return findHelper(root, ele); }
-    BinNode*&  insert(E ele) { insertHelper(root, ele); }
+    BinNode<E>*&  insert(E ele) { insertHelper(root, ele); }
     E& remove(E eel) { }
     traversal();
-}
+};
