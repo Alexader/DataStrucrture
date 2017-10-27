@@ -30,11 +30,15 @@ class BST
     //some helper to do the right thing
     void clearHelp(BinNode<E> *subroot)
     {
-        if (subroot == NULL)
-            return;
+        if (subroot == NULL) return;
         clearHelp(subroot->getLetfChild());
         clearHelp(subroot->getRightChild());
         delete subroot;
+    }
+    //a helper for finding the smallest element in a tree specified by root
+    E& removeMin(BinNode* root) {
+        if(root->getLetfChild()==NULL) return root->getValue();
+        removeMin(root->getLetfChild());
     }
     bool findHelper(BinNode<E> *subroot, E &ele)
     {
@@ -49,11 +53,22 @@ class BST
         else { return false; }
     }
     BinNode<E>*& insertHelper(BinNode<E>* subroot, E &ele) {
-        if(ele == subroot->getValue()) {subroot->setValue(removeMin(subroot));}
-        if(ele > subroot->getValue()) insertHelper(subroot->getLetfChild(), ele);
+        if(subroot==NULL) {
+            subroot->setValue(ele);//this is the recursion export
+            return subroot;
+        }
+        else if(ele >= subroot->getValue()) insertHelper(subroot->getRightChild(), ele);
         else insertHelper(subroot->getRightChild(), ele);
     }
-
+    E& removeHelper(BinNode<E>* subroot, E &ell) {
+        if(ele==subroot->getValue()) {
+            E temp = subroot->getValue();
+            subroot->setValue(removeMin(subroot->getRightChild()));
+            return temp;
+        }
+        else if(ele>subroot->getValue()) { removeHelper(subroot->getRightChild(), ele); }
+        else removeHelper(subroot->getLetfChild(), ele);
+    }
   public:
     BST()
     {
@@ -68,7 +83,18 @@ class BST
         nodeCount = 0;
     }
     bool find(E &ele) { return findHelper(root, ele); }
-    BinNode<E>*&  insert(E ele) { insertHelper(root, ele); }
-    E& remove(E eel) { }
-    traversal();
+    BinNode<E>*&  insert(E ele) {
+        insertHelper(root, ele);
+        nodeCount++;
+    }
+    E& remove(E ele) {
+        Assert(root==NULL, "tree is empty and cannot be removed")
+        nodeCount--;
+        return removeHelper(root, ele);
+    }
+    BinNode<E>*& insert(E& ele) {
+        return insertHelper(subroot, ele);
+    }
 };
+/*this kind of tree may encounter serious problem when the data entered in a sepcific way and
+it will be extremely unbalanced and degenerate into a linked list.This is when B tree to help. */
