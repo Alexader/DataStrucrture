@@ -1,5 +1,5 @@
 template<typename Elem>
-class Node() {
+class Node {
 private:
     Elem element;
     Node* next;
@@ -14,10 +14,10 @@ public:
         next = nextPtr;
         prev = prevPtr;
     }
-}
+};
 //class for double lineked list
 template<typename Elem>
-class LinkedList() {
+class LinkedList {
 private:
     Node* head;
     Node* tail;
@@ -38,7 +38,7 @@ public:
     bool remove(Elem elem);
     bool append(Elem elem);
     bool setPosition(int pos);
-}
+};
 
 template<typename Elem>
 void LinkedList::clear() {
@@ -117,4 +117,14 @@ bool LinkedList::setPosition(int pos) {
     leftLength = pos;
     rightLength = listLength-leftLength;
     return true;
+};
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    //test the linked list
+    LinkedList<int> l1 = LinkedList<int>();
+    l1.insert(1);
+    cout<<11<<endl;
 }
