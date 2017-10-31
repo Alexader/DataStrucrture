@@ -52,6 +52,7 @@ class BST
             findHelper(root->getRightChild(), ele);
         else { return false; }
     }
+    //insert is relatively easy cause you just keep comparing till it is leaf
     BinNode<E>*& insertHelper(BinNode<E>* subroot, E &ele) {
         if(subroot==NULL) {
             subroot->setValue(ele);//this is the recursion export
@@ -60,6 +61,8 @@ class BST
         else if(ele >= subroot->getValue()) insertHelper(subroot->getRightChild(), ele);
         else insertHelper(subroot->getRightChild(), ele);
     }
+    //to remove a node, you have to think about the situation when it is the node you want
+    //to delete and you have rescale this tree.
     E& removeHelper(BinNode<E>* subroot, E &ell) {
         if(ele==subroot->getValue()) {
             E temp = subroot->getValue();
