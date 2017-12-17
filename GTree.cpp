@@ -4,8 +4,8 @@ class GTNode
 private:
 	E ele;
 	GTNode* par;
-	GTNode* leftMost;
-	GTNode* bro;
+	GTNode* leftMost;//this node's left most child
+	GTNode* bro;//node's right brother
 public:
 	GTNode(E& element, GTNode* parent, GTNode* leftMost=NULL, GTNode* Bro=NULL) {
 		ele = element;
@@ -24,13 +24,24 @@ class GTree
 {
 private:
 	GTNode* root;
+	//preorder visit
+	void printHelp(GTNode* root) {
+		Visit(root);
+		GTNode* temp = root->leftMost();
+		while(temp!=NULL) {
+			Visit(temp);
+			printHelp(temp);
+			temp = temp->getBro();
+		}
+	}
 public:
 	GTree() { root = NULL; }
 	GTree(GTNode* root) { root = root; }
 	public void clear() {
 		
 	}
-	public void print();
+	public void print() {
+		printHelp(root);
+	}
 	~GTree();
-	
 };
