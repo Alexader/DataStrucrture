@@ -65,6 +65,4 @@ public:
         else return false;
     }
     int size(){ return current; }
-
-
 }
