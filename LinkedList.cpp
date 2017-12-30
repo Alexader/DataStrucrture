@@ -1,10 +1,10 @@
 template<typename Elem>
 class Node {
-private:
+public:
     Elem element;
     Node* next;
     Node* prev;
-public:
+    
     Node(Node* nextPtr = NULL, Node* prevPtr = NULL) {
         next = nextPtr;
         prev = prevPtr;
@@ -48,7 +48,7 @@ void LinkedList::clear() {
         delete fence;
     }
 }
-template<typename Elem>
+	template<typename Elem>
 LinkedList::LinkedList() {
     head = fence = tail = new Node();
     listLengh = rightLength = leftLength = 0;
