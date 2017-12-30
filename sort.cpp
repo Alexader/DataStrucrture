@@ -23,6 +23,20 @@ void bubbleSort(int* list, int n) {
         swap(list, j, j-1);
 }
 
+void selectSort(int* list, int n) {
+  int minIndex;
+  for(int i=0;i<n;i++) {
+    minIndex = i;
+    // find the min value in the `i`th right part of the array
+    for(int j=i;j<n;j++) {
+      if(list[minIndex]>list[j])
+        minIndex = j;
+    }
+    // get the min value in right place
+    swap(list, i, minIndex);
+  }
+}
+
 int main(int argc, char const *argv[])
 {
 	int arr[] = {1, 23, 4, 4, 56, 20, 12, 34, 3, 9};
@@ -34,6 +48,9 @@ int main(int argc, char const *argv[])
 	for(int i=0;i<10;i++)
 		cout<<arr[i]<<" ";
 	cout<<endl;
-
+	selectSort(arr, 10);
+	for(int i=0;i<10;i++)
+		cout<<arr[i]<<" ";
+	cout<<endl;
 	return 0;
 }
