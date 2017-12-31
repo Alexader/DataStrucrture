@@ -6,6 +6,10 @@ void swap(int* list, int one, int two) {
 	list[two] = temp;
 }
 
+int findPivot(int head, int tail) {
+	return (head+tail)/2;
+}
+
 void insertSort(int* list, int n) {
   for(int i=1;i<n;i++) {
     //to insert `i`th element in its right place
@@ -37,18 +41,71 @@ void selectSort(int* list, int n) {
   }
 }
 
+//partition for quick sort
+int partition(int* list, int head, int tail, int pivot) {
+	do {  
+    while (list[head] < pivot) head++;
+    while ((tail > head) && list[tail] >=pivot)
+       tail--;
+
+    swap(list, head, tail); // Swap out-of-place values
+  } while (head < tail); // Stop when they cross
+  return head;  // Return first pos on right
+}
+void quickSort(int* list, int head, int tail) {
+  if(head>=tail) return;
+  int pivot;
+  pivot = findPivot(head, tail);
+  //pivot to the end for the convience of swaping data
+  swap(list, pivot, tail);
+  
+  int k = partition(list, head, tail, list[pivot]);
+  //pivot change back to right place
+  swap(list, k, tail);
+  
+  quickSort(list, head, k-1);
+  quickSort(list, k+1, tail);
+}
+
+void mergeSort(int* list, int* temp, int start, int end) {
+  if(start == end) return;
+  int mid = (start+end)/2;
+  mergeSort(list, temp, start, mid);
+  mergeSort(list, temp, mid+1, end);
+  int i, j;
+  //copy data to temp array
+  for(i=start;i<=mid;i++)
+    temp[i] = list[i];
+  for(j = 1;j<=end-mid;j++)
+    temp[mid+j] = list[end-j+1];
+  // sort by comparing and copying data to original array
+  int k;
+  for(i=start,j=end,k=start;k<=end;k++)
+  {
+    if(temp[i]<temp[j])
+      list[k] = temp[i++];
+    else
+      list[k] = temp[j--];
+  }
+}
+
 int main(int argc, char const *argv[])
 {
 	int arr[] = {1, 23, 4, 4, 56, 20, 12, 34, 3, 9};
-	insertSort(arr, 10);
-	for(int i=0;i<10;i++)
-		cout<<arr[i]<<" ";
-	cout<<endl;
-	bubbleSort(arr, 10);
-	for(int i=0;i<10;i++)
-		cout<<arr[i]<<" ";
-	cout<<endl;
-	selectSort(arr, 10);
+	int temp[10];
+	// insertSort(arr, 10);
+	// for(int i=0;i<10;i++)
+	// 	cout<<arr[i]<<" ";
+	// cout<<endl;
+	// bubbleSort(arr, 10);
+	// for(int i=0;i<10;i++)
+	// 	cout<<arr[i]<<" ";
+	// cout<<endl;
+	// selectSort(arr, 10);
+	// for(int i=0;i<10;i++)
+	// 	cout<<arr[i]<<" ";
+	// cout<<endl;
+	mergeSort(arr, temp, 0, 9);
 	for(int i=0;i<10;i++)
 		cout<<arr[i]<<" ";
 	cout<<endl;
