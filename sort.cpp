@@ -22,7 +22,7 @@ void insertSort(int* list, int n) {
 
 void bubbleSort(int* list, int n) {
   for(int i=0;i<n;i++)
-    for(int j=n-1;j>0;j--)
+    for(int j=n-1;j>i;j--)
       if(list[j]<list[j-1])
         swap(list, j, j-1);
 }
@@ -38,6 +38,23 @@ void selectSort(int* list, int n) {
     }
     // get the min value in right place
     swap(list, i, minIndex);
+  }
+}
+
+//insert sort with incresment `incr`
+void insertSort2(int* list, int n, int from, int incr) {
+  for(int i=from+incr;i<n;i+=incr)
+    for(int j=i;j>from;j-=incr)
+      if(list[j]<list[j-incr])
+        swap(list, j, j-incr);
+}
+void shellSort(int* list, int n) {
+  for (int i = n/2; i > 0; i/=2)
+  {
+    for (int j = 0; j < i; ++j)
+    {
+      insertSort2(list, n, j, i);
+    }
   }
 }
 
@@ -91,7 +108,7 @@ void mergeSort(int* list, int* temp, int start, int end) {
 
 int main(int argc, char const *argv[])
 {
-	int arr[] = {1, 23, 4, 4, 56, 20, 12, 34, 3, 9};
+	int arr[] = {1, 23, 4, 5, 56, 20, 12, 34, 3, 9};
 	int temp[10];
 	// insertSort(arr, 10);
 	// for(int i=0;i<10;i++)
@@ -105,7 +122,7 @@ int main(int argc, char const *argv[])
 	// for(int i=0;i<10;i++)
 	// 	cout<<arr[i]<<" ";
 	// cout<<endl;
-	mergeSort(arr, temp, 0, 9);
+	shellSort(arr, 10);
 	for(int i=0;i<10;i++)
 		cout<<arr[i]<<" ";
 	cout<<endl;
