@@ -59,24 +59,25 @@ void shellSort(int* list, int n) {
 }
 
 //partition for quick sort
-int partition(int* list, int head, int tail, int pivot) {
+int partition(int* list, const int head, const int tail, const int pivot) {
+  int i = head, j = tail;
 	do {  
-    while (list[head] < pivot) head++;
-    while ((tail > head) && list[tail] >=pivot)
-       tail--;
+    while (list[i] < pivot) i++;
+    while ((j > i) && list[j] >=pivot)
+       j--;
 
-    swap(list, head, tail); // Swap out-of-place values
-  } while (head < tail); // Stop when they cross
-  return head;  // Return first pos on right
+    swap(list, i, j); // Swap out-of-place values
+  } while (i < j); // Stop when they cross
+  return i;  // Return first pos on right
 }
-void quickSort(int* list, int head, int tail) {
+void quickSort(int* list, const int head, const int tail) {
+  // if it's `head==tail` in the if statement
   if(head>=tail) return;
-  int pivot;
-  pivot = findPivot(head, tail);
+  int pivot = findPivot(head, tail);
   //pivot to the end for the convience of swaping data
   swap(list, pivot, tail);
   
-  int k = partition(list, head, tail, list[pivot]);
+  int k = partition(list, head, tail, list[tail]);
   //pivot change back to right place
   swap(list, k, tail);
   
@@ -108,7 +109,7 @@ void mergeSort(int* list, int* temp, int start, int end) {
 
 int main(int argc, char const *argv[])
 {
-	int arr[] = {1, 23, 4, 5, 56, 20, 12, 34, 3, 9};
+	int arr[] = {1, 23, 4, 5, 56, 20, 12, 34, 4, 9};
 	int temp[10];
 	// insertSort(arr, 10);
 	// for(int i=0;i<10;i++)
@@ -122,7 +123,7 @@ int main(int argc, char const *argv[])
 	// for(int i=0;i<10;i++)
 	// 	cout<<arr[i]<<" ";
 	// cout<<endl;
-	shellSort(arr, 10);
+	quickSort(arr, 0, 8);
 	for(int i=0;i<10;i++)
 		cout<<arr[i]<<" ";
 	cout<<endl;
