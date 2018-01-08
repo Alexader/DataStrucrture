@@ -1,4 +1,6 @@
 #include <iostream>
+#include <algorithm>
+
 using namespace std;
 void swap(int* list, int one, int two) {
 	int temp = list[one];
@@ -107,25 +109,60 @@ void mergeSort(int* list, int* temp, int start, int end) {
   }
 }
 
+inline void printArr(int* arr, int n) {
+  for(int i=0;i<n;i++) {
+    cout<<arr[i]<<" ";
+  }
+  cout<<endl;
+}
 int main(int argc, char const *argv[])
 {
 	int arr[] = {1, 23, 4, 5, 56, 20, 12, 34, 4, 9};
 	int temp[10];
-	// insertSort(arr, 10);
-	// for(int i=0;i<10;i++)
-	// 	cout<<arr[i]<<" ";
-	// cout<<endl;
-	// bubbleSort(arr, 10);
-	// for(int i=0;i<10;i++)
-	// 	cout<<arr[i]<<" ";
-	// cout<<endl;
-	// selectSort(arr, 10);
-	// for(int i=0;i<10;i++)
-	// 	cout<<arr[i]<<" ";
-	// cout<<endl;
+
 	quickSort(arr, 0, 8);
-	for(int i=0;i<10;i++)
-		cout<<arr[i]<<" ";
-	cout<<endl;
+  cout<<"After quicksort:"<<endl;
+	printArr(arr, 10);
+
+  random_shuffle(std::begin(arr), std::end(arr));
+  cout<<"After shuffle:"<<endl;
+  printArr(arr, 10);
+
+  mergeSort(arr, temp, 0, 9);
+  cout<<"After mergeSort:"<<endl;
+  printArr(arr, 10);
+
+  insertSort(arr, 10);
+  cout<<"After insertSort:"<<endl;
+  printArr(arr, 10);
+
+  random_shuffle(std::begin(arr), std::end(arr));
+  cout<<"After shuffle:"<<endl;
+  printArr(arr, 10);
+
+  selectSort(arr, 10);
+  cout<<"After selectSort:"<<endl;
+  printArr(arr, 10);
+
+  random_shuffle(std::begin(arr), std::end(arr));
+  cout<<"After shuffle:"<<endl;
+  printArr(arr, 10);
+
+  bubbleSort(arr, 10);
+  cout<<"After bubbleSort:"<<endl;
+  printArr(arr, 10);
+
+  random_shuffle(std::begin(arr), std::end(arr));
+  cout<<"After shuffle:"<<endl;
+  printArr(arr, 10);
+
+  shellSort(arr, 10);
+  cout<<"After shellSort:"<<endl;
+  printArr(arr, 10);
+
+  random_shuffle(std::begin(arr), std::end(arr));
+  cout<<"After shuffle:"<<endl;
+  printArr(arr, 10);
+
 	return 0;
 }
